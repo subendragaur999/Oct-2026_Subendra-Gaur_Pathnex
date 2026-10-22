@@ -1,0 +1,111 @@
+Day 04 - Basic CI/CD Concept with jenkins & Gitlab
+
+* Jenkinsfile -Basic CI Pipeline
+
+Pipeline {
+ Agent any
+stages{
+ stage('Build')
+steps{
+ echo 'Building project'
+}
+}
+stage('test')
+  steps {
+ echo 'running tests'
+}
+}
+stage('Deploy') {
+steps {
+
+echo 'Deploying application'
+}
+}
+}
+}
+
+GitLab CI/CD - Basic Pipeline
+ stages: 
+
+   - build
+  - push
+  - deploy
+  
+  build:
+ stage: build
+  scrpit:
+  - docker build -t pathnex-app
+
+  push:
+  stage: push
+  script:
+  - docker push pathnex-app
+
+deploy:
+  stage: deploy
+  scrpit:
+  -kubectl apply -f kubernetes/deployment.yaml
+   * Ansible -Create user and set permission 
+  - name:  create a new user
+  host: all
+   become: yes
+   taksk: 
+  - name: create a user
+   user:
+   name: pathnex
+   state: present
+    shell: /bin/bash
+   - name: set permission for the user
+   file:
+  path: /home/pathnex
+    owner: pathnex
+    group: pathnex
+   mode: '0755'
+ 
+Terraform - EC2 with tags and Volume
+  resource "aws_instance" "pathnexEC2" {
+   ami = "ami-oabcgdkdodhhy1234" 
+   instance_type = "t2.medium"
+
+  tags  = {
+  Name = "Pathnex-server"
+ }
+
+ebs_block_device {
+  device_name = "/dev/sdh"
+  volume_size = 50
+}
+}
+
+
+  * Docker
+  # Python Application
+   Print("Hello Pathnex")
+# Docker File
+   FROM python:3.11
+   WORKDIR /opt/pathnex/python-app
+   COPY [ "app.py /opt/pathnex/python-app/app.py"]
+
+ # Real Path
+   /opt/pathnex/python-app
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
