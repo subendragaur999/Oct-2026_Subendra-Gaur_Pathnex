@@ -1,0 +1,9 @@
+# Ignore everything
+/*
+
+# Keep these folders
+!/coding practice/
+!/timings/
+
+# Keep gitignore
+!/.gitignore
