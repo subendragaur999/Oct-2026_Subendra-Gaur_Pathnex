@@ -1,0 +1,113 @@
+Day 07 - Automating cloud  Infrasturure  with Terraform and Ansible 
+
+* Ansible - setup  Nginx  with customer config..
+  - name: setup Nginx with custom config
+
+   host: all
+   become: yes
+   tasks: 
+         - name: Install Nginx
+    yum:
+     name: nginx
+   status: present
+      - name: Copy custom  nginx.conf
+   copy:
+   src: nginx.conf
+   dest: /etc/nginx/nginx.conf
+    - name: Start nginx service
+    service:
+     name: nginx
+    state: startd
+   enabled: yes
+     * Terraform - provisio EC2 with IAM Role
+   resource "aws_iam_role" "EC2_role" {
+          name =  "Pathnex_EC2_role"
+        assume_role_policy = jsonencode({
+      version = " 2012-10-2017"
+     statement = [
+   {
+         Action = "sts:AssumeRole"
+      Effect = Allow"
+    Principal = {
+     service =  "ec2.amazonaws.com"
+     }
+},
+
+  ]
+})
+}
+ 
+resource "aws_instance" "pathenx_ec2" {
+   ami = "ami-0abc1234abcd12345oi"
+     instance_type = "t2.medium"
+   iam_instance_profile = aws_iam_role.ec2_role.name
+  tags = {
+   Name: "Pathenx-EC2"
+   * Kubernetes - configMap and Secret  Managment 
+    apiVersion: v1
+   kind: ConfigMap
+    metadat: 
+   name: pathnex- config
+     data: 
+    app.propertise:|
+      key = value
+       
+---------
+       api version: v1
+    kind: Secret
+    metadata:
+    name: pathnex- secret
+  type: opaque
+    data: 
+   password: cGFhaccdad=
+  
+* Shell Script - Archive Logs
+   #!/bin/bash
+  tar -czf/var/log/archived_logs.tar.gz /var/log/*.log
+   
+
+* docker Java Application
+   #JavaScrpit
+   class Hello {
+    public static void main(String []args) {
+   system.out.println("Hello Pathnex");
+   }
+}
+   
+
+* Docker File
+   FROM openjdk:17
+   WORKDIR /opt/pathnex/java-app
+     COPY Hello.java /opt/pathnex/java-app/Hello.java
+   RUN javac /opt/pathnex/java-app/Hello.java
+   CMD ["java", "-cp", "/opt/pathnex/java-app", "Hello"]
+  
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+  
+   
+  
